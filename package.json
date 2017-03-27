@@ -1,0 +1,19 @@
+{
+  "name": "freecodecamp-url-shortener",
+  "version": "1.0.0",
+  "description": "Free Code Camp URL Shortener Microservice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DawChihLiou/freecodecamp-url-shortener.git"
+  },
+  "author": "Daw-Chih Liou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DawChihLiou/freecodecamp-url-shortener/issues"
+  },
+  "homepage": "https://github.com/DawChihLiou/freecodecamp-url-shortener#readme"
+}
