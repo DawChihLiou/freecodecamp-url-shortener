@@ -8,22 +8,24 @@ const app = express();
 const port = process.env.PORT || 8080;
 const dbUrl = process.env.MLAB_URI;
 
+app.use(express.static(`${__dirname}/dist`));
+
 /**
  * Landing page 
  */
 app.get('/', (req, res) => {
-    res.send('hi');
+    res.render(`${__dirname}/index.html`);
 });
 
 /**
  * Get original url and shortened url 
  */
 app.get(/api\/short\/.*[\:\/]*.*/, (req, res) => {
-    const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    const urlRegex = /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
     const urlMatch = url.parse(req.url).pathname.match(urlRegex);
 
     // handle invalid url
-    if (!urlMatch) return res.send({error: 'Invalid url'});
+    if (!urlMatch) return res.send({message: 'Invalid url'});
     
     const originalUrl = urlMatch[0];
     const urlCode = new Date().getTime();
