@@ -29,7 +29,7 @@ app.get(/api\/short\/.*[\:\/]*.*/, (req, res) => {
     if (!urlMatch) return res.send({error: 'Invalid url'});
     
     result.original_url = originalUrl;
-    result.short_url = `${req.headers.host}/${urlCode}`;
+    result.short_url = `${req.protocol}://${req.headers.host}/${urlCode}`;
     
     // save in database
     MongoClient.connect(dbUrl, (err, db) => {
