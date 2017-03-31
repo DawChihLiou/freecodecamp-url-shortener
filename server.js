@@ -19,14 +19,15 @@ app.get('/', (req, res) => {
  * Get original url and shortened url 
  */
 app.get(/api\/short\/.*[\:\/]*.*/, (req, res) => {
-    const urlRegex = /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
     const urlMatch = url.parse(req.url).pathname.match(urlRegex);
-    const result = {};
-    const originalUrl = urlMatch[0];
-    const urlCode = new Date().getTime();
 
     // handle invalid url
     if (!urlMatch) return res.send({error: 'Invalid url'});
+    
+    const originalUrl = urlMatch[0];
+    const urlCode = new Date().getTime();
+    const result = {};
     
     result.original_url = originalUrl;
     result.short_url = `${req.protocol}://${req.headers.host}/${urlCode}`;
@@ -63,6 +64,7 @@ app.get('/:siteId', (req, res) => {
         
         const urlCode = parseInt(url.parse(req.url).pathname.replace('/', ''));
         
+        // find the url
         db.collection('url').findOne({code: urlCode}, (err, url) => {
             if (err) return console.error(`Unable to fetch url record. ${err}`);
 
